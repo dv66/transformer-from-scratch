@@ -18,22 +18,30 @@ class SelfAttentionLayer(nn.Module):
 
 		return torch.softmax(score, -1)
 
-	def forward(self, x):
-		query = self.w_q * x
-		key = self.w_k * x
-		value = self.w_v * x
-		attention_scores = torch.tensor(
-				[get_self_attention_score(_, x, _.size[0]) for _ in x]
-			)
-		attention_vectors = torch.mul(value, attention_scores)
-
-		return attention_vectors
 
 
+	def dummy_forward(self, input_vectors):
+		attention_vectors = []
+		for x in input_vectors:
+			query_vector = self.w_q * x
+			key_vector = self.w_k * x
+			value_vector = self.w_v * x
+			attention_scores = torch.tensor(
+					[get_self_attention_score(x, _, _.size[0]) for _ in input_vectors]
+				)
+			attention_vectors.append(torch.mul(value, attention_scores))
+
+		return torch.tensor(attention_vectors)
 
 
 
 
 
 
-		
+
+
+
+
+
+
+
