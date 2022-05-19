@@ -14,14 +14,13 @@ class TransformerEncoderDecoder(nn.Module):
 	def encode(self, source):
 		return self.encoder(self.source_embedding(source))
 
-	def decode(self):
-		pass 
+	def decode(self, encoded_vector):
+		return self.decoder(encoded_vector)
 
-	def forward(self):
-		pass 
-
-
+	def forward(self, source):
+		return self.decode(self.encode(source))
 
 
 
-	
+
+
